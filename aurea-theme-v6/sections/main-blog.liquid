@@ -1,0 +1,60 @@
+<section class="hero" style="padding-bottom:0;">
+  <div class="container">
+    <div class="breadcrumb" style="margin-bottom:28px;"><a href="{{ routes.root_url }}">Home</a> <span>/</span> <span>{{ blog.title }}</span></div>
+    <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+    <h1 class="h-display" style="margin:22px 0 26px;">{{ blog.title }}</h1>
+    {%- if section.settings.intro != blank -%}
+      <p class="lede" style="max-width:600px;">{{ section.settings.intro }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {%- paginate blog.articles by 9 -%}
+      {%- if blog.articles.size > 0 -%}
+        <div class="post-grid reveal-stagger">
+          {%- for article in blog.articles -%}
+            <a href="{{ article.url }}" class="post-card{% if forloop.first and paginate.current_page == 1 %} featured{% endif %}">
+              <div class="post-thumb">
+                {%- if article.image -%}
+                  <img src="{{ article.image | image_url: width: 900 }}" alt="{{ article.image.alt | escape }}" width="900" height="600" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+                {%- else -%}
+                  <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="#1B1512"/><circle cx="200" cy="150" r="90" fill="none" stroke="#A6672B" stroke-opacity="0.5"/><circle cx="200" cy="150" r="60" fill="none" stroke="#C9A15C" stroke-opacity="0.6"/><circle cx="200" cy="150" r="18" fill="#DFA562"/></svg>
+                {%- endif -%}
+              </div>
+              <span class="post-cat">{{ article.tags.first | default: 'Field Note' }}</span>
+              <h3>{{ article.title }}</h3>
+              <p>{{ article.excerpt_or_content | strip_html | truncatewords: 28 }}</p>
+              <span class="post-read">Read the Note <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+            </a>
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <div class="pagination">
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>
+              {%- else -%}<span class="{% if part.title == paginate.current_page %}current{% endif %}">{{ part.title }}</span>{%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      {%- else -%}
+        <div style="text-align:center; padding:60px 0;">
+          <h2 class="h-2" style="margin-bottom:16px;">No notes published yet.</h2>
+          <p class="body-text">Publish an article to this blog from Shopify admin and it will appear here.</p>
+        </div>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Journal" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Dispatches on where argan oil comes from, how to verify it, and how to actually use it. Written for people who read the label." }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,134 @@
+<section class="hero" style="padding-bottom:clamp(50px,7vw,80px);">
+  <div class="container">
+    <div class="breadcrumb" style="margin-bottom:34px;">
+      <a href="{{ routes.root_url }}">Home</a> <span>/</span> <span>{{ product.title }}</span>
+    </div>
+
+    <div class="hero-grid">
+      <!-- MEDIA -->
+      <div class="specimen" style="order:-1;">
+        {%- if product.featured_image -%}
+          <div class="media-frame" style="width:100%;">
+            <img data-main-image
+                 src="{{ product.featured_image | image_url: width: 1200 }}"
+                 alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                 width="1200" height="1200" loading="eager">
+          </div>
+          {%- if product.images.size > 1 -%}
+            <div class="product-thumbs" style="position:absolute;bottom:-84px;left:0;">
+              {%- for image in product.images limit: 5 -%}
+                <button type="button" data-thumb="{{ image | image_url: width: 1200 }}" class="{% if forloop.first %}active{% endif %}" aria-label="View image {{ forloop.index }}">
+                  <img src="{{ image | image_url: width: 160 }}" alt="" width="160" height="160" loading="lazy">
+                </button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        {%- else -%}
+          <div class="specimen-ring"></div>
+          <div class="leader leader-1"><span class="dot"></span><span class="rule"></span>50ML / 1.69 FL OZ</div>
+          <div class="leader leader-2"><span class="rule"></span><span class="dot"></span>UV-BLOCKING AMBER</div>
+          <div class="leader leader-3"><span class="dot"></span><span class="rule"></span>USDA ORGANIC CERT.</div>
+          <div class="leader leader-4"><span class="rule"></span><span class="dot"></span>LOT 001 &middot; AGADIR</div>
+          {% render 'bottle-svg' %}
+        {%- endif -%}
+      </div>
+
+      <!-- INFO -->
+      <div class="hero-copy">
+        {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        <h1 class="h-1" style="margin:20px 0 18px;">{{ product.title }}</h1>
+
+        {%- if section.settings.show_rating -%}
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:22px;">
+          <div class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.8 1.7 7-6.3-3.9L5.7 21l1.7-7L2 9.2l7.1-.6L12 2Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.8 1.7 7-6.3-3.9L5.7 21l1.7-7L2 9.2l7.1-.6L12 2Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.8 1.7 7-6.3-3.9L5.7 21l1.7-7L2 9.2l7.1-.6L12 2Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.8 1.7 7-6.3-3.9L5.7 21l1.7-7L2 9.2l7.1-.6L12 2Z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.6 7.1.6-5.4 4.8 1.7 7-6.3-3.9L5.7 21l1.7-7L2 9.2l7.1-.6L12 2Z"/></svg></div>
+          <span class="label-mono">{{ section.settings.rating_text }}</span>
+        </div>
+        {%- endif -%}
+
+        <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:24px;">
+          <span style="font-family:var(--f-display); font-size:38px;" data-price>{{ product.selected_or_first_available_variant.price | money }}</span>
+          {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+            <span class="price-compare">{{ product.selected_or_first_available_variant.compare_at_price | money }}</span>
+          {%- endif -%}
+          {%- if section.settings.size_note != blank -%}
+            <span class="label-mono">{{ section.settings.size_note }}</span>
+          {%- endif -%}
+        </div>
+
+        {%- if product.description != blank -%}
+          <div class="rte body-text" style="max-width:480px; margin-bottom:28px;">{{ product.description }}</div>
+        {%- endif -%}
+
+        {%- if product.available -%}
+          {% form 'product', product, id: 'AureaProductForm' %}
+            {%- unless product.has_only_default_variant -%}
+              <div class="variant-picker">
+                <label for="VariantSelect" class="label-mono" style="display:block;margin-bottom:8px;">Option</label>
+                <select name="id" id="VariantSelect" data-variant-select>
+                  {%- for variant in product.variants -%}
+                    <option value="{{ variant.id }}"
+                            data-price="{{ variant.price | money }}"
+                            {% if variant == product.selected_or_first_available_variant %}selected{% endif %}
+                            {% unless variant.available %}disabled{% endunless %}>
+                      {{ variant.title }}{% unless variant.available %} &mdash; Sold out{% endunless %}
+                    </option>
+                  {%- endfor -%}
+                </select>
+              </div>
+            {%- else -%}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            {%- endunless -%}
+
+            <div style="display:flex; gap:14px; align-items:center; margin-bottom:20px; flex-wrap:wrap;">
+              <div class="qty-stepper">
+                <button type="button" data-qty="minus" aria-label="Decrease quantity">&minus;</button>
+                <input type="text" name="quantity" value="1" aria-label="Quantity" readonly>
+                <button type="button" data-qty="plus" aria-label="Increase quantity">+</button>
+              </div>
+              <button type="submit" name="add" class="btn btn-primary" style="flex:1; justify-content:center; min-width:200px;">
+                <span data-add-label>Add to Cart &mdash; {{ product.selected_or_first_available_variant.price | money }}</span>
+              </button>
+            </div>
+
+            {%- if section.settings.show_dynamic_checkout -%}
+              <div style="margin-bottom:28px;">{{ form | payment_button }}</div>
+            {%- endif -%}
+          {% endform %}
+        {%- else -%}
+          <div style="margin-bottom:28px;"><span class="badge-sold-out">Sold out</span></div>
+        {%- endif -%}
+
+        {%- if section.blocks.size > 0 -%}
+        <div style="display:flex; flex-direction:column; gap:12px; padding-top:24px; border-top:1px solid var(--line);">
+          {%- for block in section.blocks -%}
+            <div class="check-item" {{ block.shopify_attributes }}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12l5 5L20 6"/></svg>{{ block.settings.text }}</div>
+          {%- endfor -%}
+        </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Drop 001 \u00b7 Single-Origin" },
+    { "type": "text", "id": "size_note", "label": "Size note beside price", "default": "50ml \u00b7 1.69 fl oz" },
+    { "type": "checkbox", "id": "show_rating", "label": "Show star rating", "default": true },
+    { "type": "text", "id": "rating_text", "label": "Rating text", "default": "42 verified reviews" },
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Show dynamic checkout button", "default": true }
+  ],
+  "blocks": [
+    { "type": "assurance", "name": "Assurance line", "settings": [ { "type": "text", "id": "text", "label": "Text", "default": "Complimentary shipping on orders over $75" } ] }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "assurance", "settings": { "text": "Complimentary shipping on orders over $75" } },
+      { "type": "assurance", "settings": { "text": "30-day return window, no questions asked" } },
+      { "type": "assurance", "settings": { "text": "Certificate of Analysis available for your lot" } }
+    ]
+  }
+}
+{% endschema %}

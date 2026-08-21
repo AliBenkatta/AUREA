@@ -1,0 +1,34 @@
+<section class="section" style="padding-top:0;">
+  <div class="container" style="max-width:760px;">
+    <div class="label-card">
+      <span class="eyebrow eyebrow-olive">{{ section.settings.eyebrow }}</span>
+      <h2 class="h-2" style="margin:20px 0 26px;">{{ section.settings.heading }}</h2>
+
+      {% form 'contact' %}
+        {%- if form.posted_successfully? -%}
+          <p class="form-note">Thanks. We'll be in touch shortly.</p>
+        {%- endif -%}
+        {%- if form.errors -%}
+          <p class="form-note form-error">{{ form.errors | default_errors }}</p>
+        {%- endif -%}
+
+        <div class="form-field"><label for="cName">Name</label><input type="text" id="cName" name="contact[name]" required></div>
+        <div class="form-field"><label for="cEmail">Email</label><input type="email" id="cEmail" name="contact[email]" required></div>
+        <div class="form-field"><label for="cOrder">Lot or order number (optional)</label><input type="text" id="cOrder" name="contact[lot_number]"></div>
+        <div class="form-field"><label for="cBody">Message</label><textarea id="cBody" name="contact[body]" required></textarea></div>
+        <button type="submit" class="btn btn-primary">Send Message <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact form",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Get in Touch" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Questions, wholesale, or a COA request." }
+  ],
+  "presets": [{ "name": "Contact form" }]
+}
+{% endschema %}

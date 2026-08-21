@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ shop.name }} Gift Card</title>
+  {{ 'aurea.css' | asset_url | stylesheet_tag }}
+</head>
+<body>
+  <section class="section" style="text-align:center;">
+    <div class="container">
+      <span class="eyebrow" style="justify-content:center;">Gift Card</span>
+      <h1 class="h-1" style="margin:22px 0 18px;">{{ gift_card.balance | money }}</h1>
+      <p class="lede" style="margin-bottom:30px;">Redeem this code at checkout.</p>
+      <p style="font-family:var(--f-mono); font-size:20px; letter-spacing:.1em;">{{ gift_card.code | format_code }}</p>
+      <a href="{{ shop.url }}" class="btn btn-primary" style="margin-top:30px;">Shop AURÉA</a>
+    </div>
+  </section>
+</body>
+</html>

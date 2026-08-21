@@ -1,0 +1,50 @@
+<section class="section" style="padding-top:0;">
+  <div class="container split">
+    <div class="reveal">
+      <span class="eyebrow eyebrow-olive">{{ section.settings.eyebrow }}</span>
+      <h2 class="h-2" style="margin:18px 0 22px;">{{ section.settings.heading }}</h2>
+      <div class="rte body-text">{{ section.settings.text }}</div>
+    </div>
+    <div class="reveal">
+      <div class="accordion">
+        {%- for block in section.blocks -%}
+          <div class="acc-item" {{ block.shopify_attributes }}>
+            <button class="acc-head" type="button"><h4>{{ block.settings.question }}</h4><span class="acc-icon"></span></button>
+            <div class="acc-body"><div class="acc-body-in">{{ block.settings.answer }}</div></div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How to use + FAQ",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "How to Use" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Two drops. Damp skin. That is the routine." },
+    { "type": "richtext", "id": "text", "label": "Text", "default": "<p>Warm two to three drops between your palms and press into clean, slightly damp skin. At night, apply last to seal in moisture. In the morning, apply before sunscreen and allow two minutes to absorb.</p>" }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "What makes this argan oil different?" },
+        { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>It is single-origin, unrefined, and undiluted.</p>" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "faq", "settings": { "question": "What makes this argan oil different?", "answer": "<p>It is single-origin, unrefined, and undiluted \u2014 100% Argania spinosa kernel oil from a cooperative near Agadir, cold-pressed and unrefined. Every lot ships with a Certificate of Analysis you can request.</p>" } },
+      { "type": "faq", "settings": { "question": "Is it suitable for all skin types?", "answer": "<p>Argan oil is non-comedogenic for most skin types, including oily and acne-prone skin, and is fragrance-free so it suits sensitive skin. Patch test on your inner forearm for 24 hours first. If you have a tree nut allergy, consult your physician before use.</p>" } },
+      { "type": "faq", "settings": { "question": "How long does one bottle last?", "answer": "<p>At two to three drops once daily, a 50ml bottle typically lasts three to four months. Used on both face and hair, expect closer to two months.</p>" } },
+      { "type": "faq", "settings": { "question": "How should I store it?", "answer": "<p>Keep it out of direct sunlight at room temperature. The amber glass blocks UV, which is the main cause of oxidation in unrefined oils. Shelf life is roughly 12 months after opening.</p>" } },
+      { "type": "faq", "settings": { "question": "Can I see the Certificate of Analysis?", "answer": "<p>Yes. Email us your lot number \u2014 printed on the base of your bottle \u2014 and we will send the lab report for that specific batch.</p>" } }
+    ]
+  },
+  "presets": [{ "name": "How to use + FAQ" }]
+}
+{% endschema %}

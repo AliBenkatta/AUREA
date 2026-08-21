@@ -1,0 +1,38 @@
+<section class="section on-dark">
+  <div class="container">
+    <div class="stats-grid reveal">
+      {%- for block in section.blocks -%}
+        <div class="stat" {{ block.shopify_attributes }}>
+          <div class="num" data-count="{{ block.settings.value }}">0</div>
+          <div class="lab">{{ block.settings.label }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Stats band",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "value", "label": "Value (e.g. 100%, 50ml, 1)", "default": "1" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Ingredient" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "stat", "settings": { "value": "1", "label": "Ingredient" } },
+      { "type": "stat", "settings": { "value": "50ml", "label": "Liquid Gold" } },
+      { "type": "stat", "settings": { "value": "100%", "label": "USDA Organic" } },
+      { "type": "stat", "settings": { "value": "0", "label": "Fillers, Ever" } }
+    ]
+  },
+  "presets": [{ "name": "Stats band" }]
+}
+{% endschema %}

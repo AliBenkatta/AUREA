@@ -1,0 +1,18 @@
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {}
+    },
+    "site-header": {
+      "type": "site-header",
+      "settings": {}
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "site-header"
+  ]
+}

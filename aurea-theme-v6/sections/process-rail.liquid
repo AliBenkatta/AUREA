@@ -1,0 +1,50 @@
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="reveal" style="margin-bottom:56px; max-width:560px;">
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      <h2 class="h-2" style="margin-top:18px;">{{ section.settings.heading }}</h2>
+    </div>
+    <div class="rail reveal-stagger">
+      <div class="rail-line"><div class="rail-line-fill"></div></div>
+      <div class="rail-grid">
+        {%- for block in section.blocks -%}
+          <div class="rail-step" {{ block.shopify_attributes }}>
+            <div class="rail-num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</div>
+            <h4>{{ block.settings.title }}</h4>
+            <p>{{ block.settings.text }}</p>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Process rail",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "How Your Bottle Is Made" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "From grove to glass, in four honest steps." }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Harvest" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "Argan kernels are hand-gathered by a women's cooperative in the groves outside Agadir, at peak ripeness." }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "step", "settings": { "title": "Harvest", "text": "Argan kernels are hand-gathered by a women's cooperative in the groves outside Agadir, at peak ripeness." } },
+      { "type": "step", "settings": { "title": "Cold-Press", "text": "Pressed without heat or chemical solvents, which protects the vitamin E and fatty acid content." } },
+      { "type": "step", "settings": { "title": "Certify", "text": "Every batch is third-party tested; a Certificate of Analysis ships as proof of what's \u2014 and isn't \u2014 inside." } },
+      { "type": "step", "settings": { "title": "Bottle", "text": "Hand-filled into UV-blocking amber glass, which keeps the oil stable from harvest to your hands." } }
+    ]
+  },
+  "presets": [{ "name": "Process rail" }]
+}
+{% endschema %}

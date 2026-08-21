@@ -1,0 +1,24 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {}
+    },
+    "certs": {
+      "type": "certifications",
+      "settings": {
+        "eyebrow": "Verification",
+        "heading": "Certified, tested, and documented."
+      }
+    },
+    "stats": {
+      "type": "stats",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "certs",
+    "stats"
+  ]
+}

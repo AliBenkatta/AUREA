@@ -1,0 +1,17 @@
+<section class="section" style="padding-top:clamp(140px,16vw,180px);">
+  <div class="container">
+    <h1 class="h-2" style="margin-bottom:26px;">Account</h1>
+    <p class="body-text" style="margin-bottom:24px;">{{ customer.email }} &middot; <a href="{{ routes.account_logout_url }}" class="post-read">Log out</a></p>
+    {%- if customer.orders.size > 0 -%}
+      {%- for order in customer.orders -%}
+        <div class="cart-row" style="grid-template-columns:1fr auto auto;">
+          <div><a href="{{ order.customer_url }}" class="cart-title">Order {{ order.name }}</a><div class="cart-variant">{{ order.created_at | date: '%B %-d, %Y' }}</div></div>
+          <div class="label-mono">{{ order.financial_status }}</div>
+          <div style="font-family:var(--f-mono);">{{ order.total_price | money }}</div>
+        </div>
+      {%- endfor -%}
+    {%- else -%}
+      <p class="body-text">No orders yet.</p>
+    {%- endif -%}
+  </div>
+</section>

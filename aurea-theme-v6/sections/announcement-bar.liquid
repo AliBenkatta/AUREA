@@ -1,0 +1,32 @@
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    {%- for block in section.blocks -%}
+      <span>{{ block.settings.text }}</span>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement ticker",
+  "max_blocks": 8,
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        { "type": "text", "id": "text", "label": "Text", "default": "Single-Origin \u00b7 Agadir, Morocco" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "message", "settings": { "text": "Single-Origin \u00b7 Agadir, Morocco" } },
+      { "type": "message", "settings": { "text": "USDA Certified Organic" } },
+      { "type": "message", "settings": { "text": "Cold-Pressed &amp; Unrefined" } },
+      { "type": "message", "settings": { "text": "One Ingredient. No Compromises." } },
+      { "type": "message", "settings": { "text": "Complimentary Shipping Over $75" } }
+    ]
+  }
+}
+{% endschema %}

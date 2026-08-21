@@ -1,0 +1,29 @@
+<section class="hero" style="padding-bottom:0;">
+  <div class="container">
+    <span class="eyebrow">Catalogue</span>
+    <h1 class="h-display" style="margin:22px 0 26px;">Collections</h1>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="product-grid">
+      {%- for collection in collections -%}
+        <a href="{{ collection.url }}" class="product-card">
+          <div class="product-card-media">
+            {%- if collection.featured_image -%}
+              <img src="{{ collection.featured_image | image_url: width: 600 }}" alt="{{ collection.title | escape }}" width="600" height="600" loading="lazy">
+            {%- else -%}
+              {% render 'bottle-mini' %}
+            {%- endif -%}
+          </div>
+          <h3>{{ collection.title }}</h3>
+          <div class="price">{{ collection.products_count }} products</div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Collections list", "settings": [] }
+{% endschema %}
