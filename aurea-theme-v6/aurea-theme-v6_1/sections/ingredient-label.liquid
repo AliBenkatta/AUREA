@@ -1,0 +1,48 @@
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="label-card reveal">
+      <span class="eyebrow eyebrow-olive">{{ section.settings.eyebrow }}</span>
+      <h2 class="h-1" style="margin:20px 0 16px; max-width:720px;">{{ section.settings.heading }}</h2>
+      <p class="lede" style="max-width:600px;">{{ section.settings.text }}</p>
+      <div class="label-fields">
+        {%- for block in section.blocks -%}
+          <div {{ block.shopify_attributes }}>
+            <span class="lf-k">{{ block.settings.key }}</span>
+            <span class="lf-v">{{ block.settings.value }}</span>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Ingredient label",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The Label, Read in Full" },
+    { "type": "html", "id": "heading", "label": "Heading", "default": "100% <em style=\"font-style:italic;color:var(--bronze);\">Argania Spinosa</em> Kernel Oil." },
+    { "type": "textarea", "id": "text", "label": "Body", "default": "That's the entire ingredient list. No fillers, no synthetic fragrance, no dilution \u2014 because unrefined argan oil, sourced correctly, never needed help." }
+  ],
+  "blocks": [
+    {
+      "type": "field",
+      "name": "Field",
+      "settings": [
+        { "type": "text", "id": "key", "label": "Label", "default": "Net Weight" },
+        { "type": "text", "id": "value", "label": "Value", "default": "50ml / 1.69 fl oz" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "field", "settings": { "key": "Net Weight", "value": "50ml / 1.69 fl oz" } },
+      { "type": "field", "settings": { "key": "Origin", "value": "Agadir, Morocco" } },
+      { "type": "field", "settings": { "key": "Extraction", "value": "Cold-Pressed" } },
+      { "type": "field", "settings": { "key": "Certification", "value": "USDA Organic" } }
+    ]
+  },
+  "presets": [{ "name": "Ingredient label" }]
+}
+{% endschema %}

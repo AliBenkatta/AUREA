@@ -1,0 +1,54 @@
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      {%- if section.settings.eyebrow != blank -%}<span class="eyebrow">{{ section.settings.eyebrow }}</span>{%- endif -%}
+      <h1 class="h-display" style="margin:22px 0 26px;">{{ section.settings.heading }}</h1>
+      <p class="lede" style="max-width:460px; margin-bottom:38px;">{{ section.settings.subheading }}</p>
+      <div class="hero-ctas">
+        {%- if section.settings.cta1_text != blank -%}
+          <a href="{{ section.settings.cta1_link }}" class="btn btn-primary">{{ section.settings.cta1_text }} <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+        {%- endif -%}
+        {%- if section.settings.cta2_text != blank -%}
+          <a href="{{ section.settings.cta2_link }}" class="btn btn-ghost">{{ section.settings.cta2_text }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="specimen">
+      <div class="specimen-ring"></div>
+      {%- if section.settings.label_1 != blank -%}<div class="leader leader-1"><span class="dot"></span><span class="rule"></span>{{ section.settings.label_1 }}</div>{%- endif -%}
+      {%- if section.settings.label_2 != blank -%}<div class="leader leader-2"><span class="rule"></span><span class="dot"></span>{{ section.settings.label_2 }}</div>{%- endif -%}
+      {%- if section.settings.label_3 != blank -%}<div class="leader leader-3"><span class="dot"></span><span class="rule"></span>{{ section.settings.label_3 }}</div>{%- endif -%}
+      {%- if section.settings.label_4 != blank -%}<div class="leader leader-4"><span class="rule"></span><span class="dot"></span>{{ section.settings.label_4 }}</div>{%- endif -%}
+
+      {%- if section.settings.image != blank -%}
+        <img src="{{ section.settings.image | image_url: width: 900 }}" alt="{{ section.settings.image.alt | escape }}" class="bottle-art" style="width:52%;" width="900" height="900" loading="eager">
+      {%- else -%}
+        {% render 'bottle-svg' %}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero specimen",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Specimen No. 001 \u2014 Argania Spinosa" },
+    { "type": "html", "id": "heading", "label": "Heading (use <em> for italic accent)", "default": "Nature,<br><em>elevated.</em>" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "One bottle. One ingredient. A centuries-old ritual from the argan forests of Agadir, cold-pressed into fifty milliliters of liquid gold." },
+    { "type": "image_picker", "id": "image", "label": "Product image (optional \u2014 falls back to illustration)" },
+    { "type": "header", "content": "Buttons" },
+    { "type": "text", "id": "cta1_text", "label": "Primary button", "default": "Shop the Oil" },
+    { "type": "url", "id": "cta1_link", "label": "Primary link" },
+    { "type": "text", "id": "cta2_text", "label": "Secondary button", "default": "Read the Provenance" },
+    { "type": "url", "id": "cta2_link", "label": "Secondary link" },
+    { "type": "header", "content": "Annotation labels" },
+    { "type": "text", "id": "label_1", "label": "Label 1", "default": "50ML / 1.69 FL OZ" },
+    { "type": "text", "id": "label_2", "label": "Label 2", "default": "COLD-PRESSED GLASS" },
+    { "type": "text", "id": "label_3", "label": "Label 3", "default": "USDA ORGANIC CERT." },
+    { "type": "text", "id": "label_4", "label": "Label 4", "default": "LOT 001 \u00b7 AGADIR" }
+  ],
+  "presets": [{ "name": "Hero specimen" }]
+}
+{% endschema %}

@@ -1,0 +1,13 @@
+<section class="section" style="padding-top:clamp(140px,16vw,180px);">
+  <div class="container">
+    <h1 class="h-2" style="margin-bottom:8px;">Order {{ order.name }}</h1>
+    <p class="label-mono" style="margin-bottom:30px;">{{ order.created_at | date: '%B %-d, %Y' }}</p>
+    {%- for line_item in order.line_items -%}
+      <div class="cart-row" style="grid-template-columns:1fr auto auto;">
+        <div><span class="cart-title">{{ line_item.title }}</span><div class="cart-variant">Qty {{ line_item.quantity }}</div></div>
+        <div style="font-family:var(--f-mono);">{{ line_item.final_line_price | money }}</div>
+      </div>
+    {%- endfor -%}
+    <div class="cart-summary"><div class="cart-subtotal"><span class="label-mono">Total</span><span class="amt">{{ order.total_price | money }}</span></div></div>
+  </div>
+</section>

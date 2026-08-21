@@ -1,0 +1,65 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Aur\u00e9a",
+    "theme_version": "1.0.0",
+    "theme_author": "Aur\u00e9a",
+    "theme_documentation_url": "https://theaureabrand.shop",
+    "theme_support_url": "https://theaureabrand.shop/pages/contact"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok",
+        "label": "TikTok URL"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Ink (dark)",
+        "default": "#1B1512"
+      },
+      {
+        "type": "color",
+        "id": "color_bone",
+        "label": "Bone (background)",
+        "default": "#F6F1E6"
+      },
+      {
+        "type": "color",
+        "id": "color_bronze",
+        "label": "Bronze (accent)",
+        "default": "#A6672B"
+      },
+      {
+        "type": "color",
+        "id": "color_gold",
+        "label": "Gold",
+        "default": "#C9A15C"
+      },
+      {
+        "type": "color",
+        "id": "color_olive",
+        "label": "Olive",
+        "default": "#57633F"
+      }
+    ]
+  }
+]

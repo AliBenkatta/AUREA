@@ -1,0 +1,13 @@
+<section class="section" style="padding-top:clamp(140px,16vw,180px);">
+  <div class="container" style="max-width:460px;">
+    <h1 class="h-2" style="margin-bottom:26px;">Create account</h1>
+    {% form 'create_customer' %}
+      {{ form.errors | default_errors }}
+      <div class="form-field"><label for="rf">First name</label><input type="text" name="customer[first_name]" id="rf"></div>
+      <div class="form-field"><label for="rl">Last name</label><input type="text" name="customer[last_name]" id="rl"></div>
+      <div class="form-field"><label for="re">Email</label><input type="email" name="customer[email]" id="re"></div>
+      <div class="form-field"><label for="rp">Password</label><input type="password" name="customer[password]" id="rp"></div>
+      <button type="submit" class="btn btn-primary btn-block">Create</button>
+    {% endform %}
+  </div>
+</section>

@@ -1,0 +1,9 @@
+<section class="section" style="padding-top:clamp(140px,16vw,180px);">
+  <div class="container">
+    <h1 class="h-2" style="margin-bottom:26px;">Addresses</h1>
+    {%- for address in customer.addresses -%}
+      <div style="padding:20px 0; border-bottom:1px solid var(--line);">{{ address | format_address }}</div>
+    {%- endfor -%}
+    <p style="margin-top:24px;"><a href="{{ routes.account_url }}" class="post-read">Back to account</a></p>
+  </div>
+</section>

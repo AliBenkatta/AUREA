@@ -1,0 +1,34 @@
+<section class="hero" style="padding-bottom:0;">
+  <div class="container">
+    <span class="eyebrow">Search</span>
+    <h1 class="h-display" style="margin:22px 0 26px;">Find it.</h1>
+    <form action="{{ routes.search_url }}" method="get" class="nl-form" style="max-width:520px; border-bottom-color:var(--line);">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="search the shop" style="color:var(--ink);">
+      <button type="submit" style="color:var(--bronze);"><span>Search</span></button>
+    </form>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {%- if search.performed -%}
+      <p class="label-mono" style="margin-bottom:30px;">{{ search.results_count }} results for &ldquo;{{ search.terms | escape }}&rdquo;</p>
+      <div class="product-grid">
+        {%- for item in search.results -%}
+          {%- if item.object_type == 'product' -%}
+            {% render 'product-card', card_product: item %}
+          {%- else -%}
+            <a href="{{ item.url }}" class="post-card">
+              <span class="post-cat">{{ item.object_type }}</span>
+              <h3>{{ item.title }}</h3>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Search", "settings": [] }
+{% endschema %}

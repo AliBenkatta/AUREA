@@ -1,0 +1,84 @@
+<article>
+  <section class="article-hero">
+    <div class="container">
+      <div class="breadcrumb" style="margin-bottom:26px;">
+        <a href="{{ routes.root_url }}">Home</a> <span>/</span> <a href="{{ blog.url }}">{{ blog.title }}</a>
+      </div>
+      {%- if article.tags.size > 0 -%}<span class="eyebrow">{{ article.tags.first }}</span>{%- endif -%}
+      <h1 class="h-1" style="margin:20px 0 20px; max-width:860px;">{{ article.title }}</h1>
+      {%- if article.excerpt != blank -%}
+        <p class="lede" style="max-width:660px;">{{ article.excerpt | strip_html }}</p>
+      {%- endif -%}
+      <div class="article-meta">
+        <span class="label-mono">{{ article.published_at | date: '%B %-d, %Y' }}</span>
+        {%- if section.settings.show_author and article.author != blank -%}
+          <span class="label-mono">&middot;</span><span class="label-mono">{{ article.author }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+
+  {%- if article.image -%}
+    <div class="container">
+      <div class="article-figure reveal">
+        <img src="{{ article.image | image_url: width: 1600 }}" alt="{{ article.image.alt | escape }}" width="1600" height="800" style="width:100%;height:100%;object-fit:cover;" loading="eager">
+      </div>
+    </div>
+  {%- endif -%}
+
+  <section class="section" style="padding-top:40px;">
+    <div class="container">
+      <div class="article-body rte">{{ article.content }}</div>
+    </div>
+  </section>
+
+  <section class="section-tight" style="background:var(--bone-dim);">
+    <div class="container" style="text-align:center; padding-top:50px; padding-bottom:50px;">
+      <span class="eyebrow eyebrow-olive" style="justify-content:center;">{{ section.settings.cta_eyebrow }}</span>
+      <h2 class="h-2" style="margin:20px auto 24px; max-width:520px;">{{ section.settings.cta_heading }}</h2>
+      <a href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}" class="btn btn-primary">{{ section.settings.cta_text }} <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </section>
+
+  {%- if blog.articles.size > 1 -%}
+  <section class="section">
+    <div class="container">
+      <div class="reveal" style="margin-bottom:38px;"><span class="eyebrow">Keep Reading</span></div>
+      <div class="post-grid reveal-stagger" style="grid-template-columns:repeat(2,1fr);">
+        {%- assign shown = 0 -%}
+        {%- for a in blog.articles -%}
+          {%- if a.id != article.id and shown < 2 -%}
+            {%- assign shown = shown | plus: 1 -%}
+            <a href="{{ a.url }}" class="post-card">
+              <div class="post-thumb">
+                {%- if a.image -%}
+                  <img src="{{ a.image | image_url: width: 900 }}" alt="" width="900" height="600" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+                {%- else -%}
+                  <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="#1B1512"/><circle cx="200" cy="150" r="90" fill="none" stroke="#A6672B" stroke-opacity="0.5"/><circle cx="200" cy="150" r="60" fill="none" stroke="#C9A15C" stroke-opacity="0.6"/><circle cx="200" cy="150" r="18" fill="#DFA562"/></svg>
+                {%- endif -%}
+              </div>
+              <span class="post-cat">{{ a.tags.first | default: 'Field Note' }}</span>
+              <h3>{{ a.title }}</h3>
+              <p>{{ a.excerpt_or_content | strip_html | truncatewords: 20 }}</p>
+              <span class="post-read">Read the Note <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h15M13 6l6 6-6 6"/></svg></span>
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+  {%- endif -%}
+</article>
+
+{% schema %}
+{
+  "name": "Article",
+  "settings": [
+    { "type": "checkbox", "id": "show_author", "label": "Show author", "default": false },
+    { "type": "text", "id": "cta_eyebrow", "label": "CTA eyebrow", "default": "Drop 001" },
+    { "type": "text", "id": "cta_heading", "label": "CTA heading", "default": "One bottle. One ingredient. Fifty millilitres of Agadir." },
+    { "type": "text", "id": "cta_text", "label": "CTA button", "default": "Shop the Oil" },
+    { "type": "url", "id": "cta_link", "label": "CTA link" }
+  ]
+}
+{% endschema %}

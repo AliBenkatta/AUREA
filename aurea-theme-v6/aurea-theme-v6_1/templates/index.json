@@ -1,0 +1,53 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-specimen",
+      "settings": {}
+    },
+    "trust": {
+      "type": "trust-bar",
+      "settings": {}
+    },
+    "spot": {
+      "type": "spotlight",
+      "settings": {}
+    },
+    "label": {
+      "type": "ingredient-label",
+      "settings": {}
+    },
+    "process": {
+      "type": "process-rail",
+      "settings": {}
+    },
+    "certs": {
+      "type": "certifications",
+      "settings": {}
+    },
+    "stats": {
+      "type": "stats",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "reviews",
+      "settings": {}
+    },
+    "notes": {
+      "type": "field-notes",
+      "settings": {
+        "blog": "news"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "trust",
+    "spot",
+    "label",
+    "process",
+    "certs",
+    "stats",
+    "reviews",
+    "notes"
+  ]
+}
